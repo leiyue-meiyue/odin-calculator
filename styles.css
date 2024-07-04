@@ -4,6 +4,7 @@
   box-sizing: border-box;
   row-gap: 0;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(238, 234, 229);
 }
 
 h1 {
@@ -27,6 +28,7 @@ h1 {
   flex-direction: column;
   padding: 10px;
   border-radius: 2px;
+  /* filter: drop-shadow(-5px 5px 8px #8d8381); */
 }
 
 .display {
@@ -43,6 +45,7 @@ h1 {
 
 .buttons {
   /* background-color: antiquewhite; */
+  background-color: rgb(186, 177, 165);
   display: flex;
   flex-direction: row;
 }
@@ -53,12 +56,14 @@ h1 {
   flex-wrap: wrap;
   gap: 8px;
   margin-right: 8px;
+  background-color: rgb(186, 177, 165);
 }
 
 .right {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background-color: rgb(186, 177, 165);
 }
 
 .button {
