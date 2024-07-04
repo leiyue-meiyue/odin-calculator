@@ -59,6 +59,7 @@ const clear = document.querySelector("#clear");
 const display = document.querySelector(".display");
 const equals = document.querySelector("#equals");
 const decimal = document.querySelector("#decimal");
+const backspace = document.querySelector("#backspace");
 
 
 // display
@@ -68,7 +69,7 @@ let hasEqualsBeenPressed = false;
 let hasOperatorBeenPressed = false;
 
 function updateDisplay(displayNum) {
-  if (displayNum == "0") {
+  if ((displayNum == "0") || (displayNum == '')) {
     display.textContent = "0";
   } else {
     if (displayNum > 999999999) {
@@ -265,3 +266,10 @@ equals.addEventListener("click", () => {
   hasEqualsBeenPressed = true;
 })
 
+
+// backspace
+backspace.addEventListener("click", () => {
+  displayNum = displayNum.toString();
+  displayNum = displayNum.substring(0, displayNum.length - 1);
+  updateDisplay(displayNum);
+})
