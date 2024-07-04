@@ -11,6 +11,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (b == 0) {
+    return "lol"
+  }
   return a / b
 }
 
@@ -41,6 +44,7 @@ const minus = document.querySelector("#minus");
 const multiplyBtn = document.querySelector("#multiply");
 const divideBtn = document.querySelector("#divide");
 
+const zero = document.querySelector("#zero");
 const one = document.querySelector("#one");
 const two = document.querySelector("#two");
 const three = document.querySelector("#three");
@@ -81,7 +85,7 @@ function updateDisplay(displayNum) {
 zero.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   if (displayNum.length >= 9) return          // curb length
-  if (displayNum == '') return
+  if ((displayNum == '') && (!num1) && (!num2)) return
   displayNum += "0";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
