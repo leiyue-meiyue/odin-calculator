@@ -59,6 +59,8 @@ const equals = document.querySelector("#equals");
 // display
 let displayNum = "";
 let isAwaitingNext = false;
+let hasEqualsBeenPressed = false;
+let hasOperatorBeenPressed = false;
 
 function updateDisplay(displayNum) {
   if (displayNum == "0") {
@@ -70,57 +72,73 @@ function updateDisplay(displayNum) {
 
 
 // buttons
+zero.addEventListener("click", () => {
+  if (isAwaitingNext) clearDisplay();
+  displayNum += "0";
+  hasOperatorBeenPressed = false;
+  updateDisplay(displayNum);
+})
+
 one.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "1";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 two.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "2";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 three.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "3";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 four.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "4";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 five.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "5";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 six.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "6";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 seven.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "7";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 eight.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "8";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
 nine.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
   displayNum += "9";
+  hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
 
@@ -132,27 +150,95 @@ function clearDisplay() {
   isAwaitingNext = false;
 }
 
-clear.addEventListener("click", () => clearDisplay());
+clear.addEventListener("click", () => {
+  clearDisplay();
+  resetNums();
+});
+
+function resetNums() {
+  num1 = null;
+  num2 = null;
+  operator = "";
+}
 
 
 // operator buttons
 plus.addEventListener("click", () => {
+  // if num + num + operator, perform the operation and update the display
+  if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
+    num2 = parseFloat(displayNum);
+    displayNum = operate(num1, num2, operator);
+    updateDisplay(displayNum);
+  }
+  // set num1 to displayNum and await operation
+  if (displayNum == '') displayNum = 0;
   num1 = parseFloat(displayNum);
   operator = "add";
   isAwaitingNext = true;
+  hasEqualsBeenPressed = false;
+  hasOperatorBeenPressed = true;
+})
+
+minus.addEventListener("click", () => {
+  if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
+    num2 = parseFloat(displayNum);
+    displayNum = operate(num1, num2, operator);
+    updateDisplay(displayNum);
+  }
+  if (displayNum == '') displayNum = 0;
+  num1 = parseFloat(displayNum);
+  operator = "subtract";
+  isAwaitingNext = true;
+  hasEqualsBeenPressed = false;
+  hasOperatorBeenPressed = true;
+})
+
+multiplyBtn.addEventListener("click", () => {
+  if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
+    num2 = parseFloat(displayNum);
+    displayNum = operate(num1, num2, operator);
+    updateDisplay(displayNum);
+  }
+  if (displayNum == '') displayNum = 0;
+  num1 = parseFloat(displayNum);
+  operator = "multiply";
+  isAwaitingNext = true;
+  hasEqualsBeenPressed = false;
+  hasOperatorBeenPressed = true;
+})
+
+divideBtn.addEventListener("click", () => {
+  if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
+    num2 = parseFloat(displayNum);
+    displayNum = operate(num1, num2, operator);
+    updateDisplay(displayNum);
+  }
+  if (displayNum == '') displayNum = 0;
+  num1 = parseFloat(displayNum);
+  operator = "divide";
+  isAwaitingNext = true;
+  hasEqualsBeenPressed = false;
+  hasOperatorBeenPressed = true;
 })
 
 equals.addEventListener("click", () => {
+  if (!num1) return         // do nothing if no operator
   num2 = parseFloat(displayNum);
   displayNum = operate(num1, num2, operator);
   updateDisplay(displayNum);
   isAwaitingNext = true;
+  hasEqualsBeenPressed = true;
 })
 
+// press number
+// press operator
+// press second number
+// press operator 
+// number 1 operates number 2
+// result becomes number 1
+// press num 2
+// press equals
+// operate num1 and num2
+// press operator
+// num1 becomes displaynum
 
-// input first displaynum
-// press plus -> num1 becomes displaynum
-// when the next button is pressed, clear the display then update it
-// press equals = num2 becomes displaynum
-// call operate and update display
-// next time click number, clear display and update it
