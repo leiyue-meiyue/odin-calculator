@@ -54,6 +54,7 @@ const nine = document.querySelector("#nine");
 const clear = document.querySelector("#clear");
 const display = document.querySelector(".display");
 const equals = document.querySelector("#equals");
+const decimal = document.querySelector("#decimal");
 
 
 // display
@@ -79,6 +80,8 @@ function updateDisplay(displayNum) {
 // buttons
 zero.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return          // curb length
+  if (displayNum == '') return
   displayNum += "0";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -155,6 +158,15 @@ nine.addEventListener("click", () => {
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
 });
+
+decimal.addEventListener("click", () => {
+  if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
+  if (displayNum.indexOf(".") != -1) return
+  displayNum += ".";
+  hasOperatorBeenPressed = false;
+  updateDisplay(displayNum);
+})
 
 
 // clear
