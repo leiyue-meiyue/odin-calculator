@@ -66,7 +66,12 @@ function updateDisplay(displayNum) {
   if (displayNum == "0") {
     display.textContent = "0";
   } else {
-    display.textContent = displayNum;
+    if (displayNum > 999999999) {
+      display.textContent = "too big";
+    } else {
+      displayNum = displayNum.toString().substring(0, 9);
+      display.textContent = displayNum;
+    }
   }
 }
 
@@ -81,6 +86,7 @@ zero.addEventListener("click", () => {
 
 one.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return          // curb length
   displayNum += "1";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -88,6 +94,7 @@ one.addEventListener("click", () => {
 
 two.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "2";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -95,6 +102,7 @@ two.addEventListener("click", () => {
 
 three.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "3";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -102,6 +110,7 @@ three.addEventListener("click", () => {
 
 four.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "4";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -109,6 +118,7 @@ four.addEventListener("click", () => {
 
 five.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "5";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -116,6 +126,7 @@ five.addEventListener("click", () => {
 
 six.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "6";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -123,6 +134,7 @@ six.addEventListener("click", () => {
 
 seven.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "7";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -130,6 +142,7 @@ seven.addEventListener("click", () => {
 
 eight.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "8";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -137,6 +150,7 @@ eight.addEventListener("click", () => {
 
 nine.addEventListener("click", () => {
   if (isAwaitingNext) clearDisplay();
+  if (displayNum.length >= 9) return
   displayNum += "9";
   hasOperatorBeenPressed = false;
   updateDisplay(displayNum);
@@ -164,6 +178,8 @@ function resetNums() {
 
 // operator buttons
 plus.addEventListener("click", () => {
+  // do nothing if an operator is the first thing that is pressed
+  if (!num1 && !num2 && (displayNum == '')) return
   // if num + num + operator, perform the operation and update the display
   if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
     num2 = parseFloat(displayNum);
@@ -180,6 +196,7 @@ plus.addEventListener("click", () => {
 })
 
 minus.addEventListener("click", () => {
+  if (!num1 && !num2 && (displayNum == '')) return
   if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
     num2 = parseFloat(displayNum);
     displayNum = operate(num1, num2, operator);
@@ -194,6 +211,7 @@ minus.addEventListener("click", () => {
 })
 
 multiplyBtn.addEventListener("click", () => {
+  if (!num1 && !num2 && (displayNum == '')) return
   if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
     num2 = parseFloat(displayNum);
     displayNum = operate(num1, num2, operator);
@@ -208,6 +226,7 @@ multiplyBtn.addEventListener("click", () => {
 })
 
 divideBtn.addEventListener("click", () => {
+  if (!num1 && !num2 && (displayNum == '')) return
   if ((num1 != null) && (!hasEqualsBeenPressed) && !hasOperatorBeenPressed) {
     num2 = parseFloat(displayNum);
     displayNum = operate(num1, num2, operator);
@@ -229,16 +248,4 @@ equals.addEventListener("click", () => {
   isAwaitingNext = true;
   hasEqualsBeenPressed = true;
 })
-
-// press number
-// press operator
-// press second number
-// press operator 
-// number 1 operates number 2
-// result becomes number 1
-// press num 2
-// press equals
-// operate num1 and num2
-// press operator
-// num1 becomes displaynum
 
